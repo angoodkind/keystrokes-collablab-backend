@@ -5,7 +5,11 @@ var io = require('socket.io')(http);
 const PORT = 8080;
 let count = 0;
 
-
+// const app = express();
+app.get("/", (req, res) => {
+    console.log("connected");
+    res.send("connected");
+  });
 
 http.listen(PORT, () => {
     console.log(`listening on *:${PORT}`);
