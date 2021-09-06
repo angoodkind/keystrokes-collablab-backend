@@ -2,10 +2,10 @@ var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 
-app.get("/", (req, res) => {
+app.get("", (req, res) => {
     console.log("connected");
     res.send("connected");
   });
