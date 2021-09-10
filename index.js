@@ -1,20 +1,11 @@
-var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+const express = require('express');
+const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 const PORT = process.env.PORT || 8080;
 
-
-app.get("", (req, res) => {
-    console.log("connected");
-    res.send("connected");
-  });
-
-http.listen(PORT, () => {
-    console.log(`listening on *:${PORT}`);
-});
-
-let node; 
+// let node; 
 // let room = 0;
 // let members = 1;
 
@@ -24,6 +15,25 @@ let room = 0;
 let nodes = {};
 let rooms = {};
 let roomMap = {};
+
+app.get("", (req, res) => {
+    console.log("connected");
+    res.send("connected");
+  });
+
+
+http.listen(PORT, () => {
+    console.log(`listening on *:${PORT}`);
+});
+
+app.get("/reset", (req, res) => {
+    count = 0;
+    room = 0;
+    nodes = {};
+    rooms = {};
+    roomMap = {};
+    res.status(200).send("Reset");
+})
 
 
 
