@@ -58,13 +58,13 @@ io.on('connection', (socket) => {
         nodes[data.room] = data.signal;
         console.log("SET NODE EVENT");
         console.log(data.signal);
-        io.to(`room${data.room}`).emit("setNode", data.signal)
+        io.to(`room${data.room}`).emit("setNode", data.room)
     })
 
     socket.on('getNode', (data) => {
         console.log("GET NODE EVENT");
         console.log(nodes[data.room]);
-        io.to(`room${data.room}`).emit("getNode", nodes[data.room]);
+        io.to(`room${data.room}`).emit("getNode", data.room);
     })
 
 
