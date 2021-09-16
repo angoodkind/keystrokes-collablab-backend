@@ -1,20 +1,19 @@
+// Load the necessary libraries. This server code is hosted on Heroku at 
+// keystrokes-collablab.herokuapp.com.
+
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-
 const PORT = process.env.PORT || 8080;
-
-// let node; 
-// let room = 0;
-// let members = 1;
-
 
 let count = 0;
 let room = 0;
 let nodes = {};
 let rooms = {};
 let roomMap = {};
+
+// Going to https://keystrokes-collablab.herokuapp.com. will show "connected"
 
 app.get("", (req, res) => {
     console.log("connected");
@@ -26,6 +25,11 @@ http.listen(PORT, () => {
     console.log(`listening on *:${PORT}`);
 });
 
+
+// This was more for testing purposes.
+// Going to https://keystrokes-collablab.herokuapp.com/reset will reset the room count.
+// Meaning the next client to login after a reset will start as subject 0, room 0,
+// and the client after that is subject 1, room 0, and then subject 0 room 1, etc.
 app.get("/reset", (req, res) => {
     count = 0;
     room = 0;
@@ -36,10 +40,10 @@ app.get("/reset", (req, res) => {
 })
 
 
-
 io.on('connection', (socket) => { 
     socket.join(`room${room}`);
     socket.emit('connection', {room: room, count: count});
+    // Use a dictionary to keep track of how many people are in what room
     roomMap[socket.id] = count;
     if (count == 0) {
         count = count + 1;
@@ -49,11 +53,13 @@ io.on('connection', (socket) => {
     }
     console.log(`new client connected, and the socket id was ${socket.id}`);
 
+    // Use the soclket.io library to send messages to the right rooms.
     socket.on('message', (data) => {
         console.log(`Hello ${data.room}`)
         io.to(`room${data.room}`).emit("message", data.signal)
     })
 
+    // Use the socket.io library to tell clients what room they're in.
     socket.on('setNode', (data) => {
         nodes[data.room] = data.signal;
         console.log("SET NODE EVENT");
