@@ -5,7 +5,8 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const PORT = process.env.PORT || 8080;
+// const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 
 let count = 0;
 let room = 0;
@@ -13,7 +14,9 @@ let nodes = {};
 let rooms = {};
 let roomMap = {};
 
+
 // Going to https://keystrokes-collablab.herokuapp.com. will show "connected"
+// Or localhost:8080 on the EC2 instance
 
 app.get("", (req, res) => {
     console.log("connected");
@@ -28,6 +31,7 @@ http.listen(PORT, () => {
 
 // This was more for testing purposes.
 // Going to https://keystrokes-collablab.herokuapp.com/reset will reset the room count.
+// (localhost:8080/reset for EC2)
 // Meaning the next client to login after a reset will start as subject 0, room 0,
 // and the client after that is subject 1, room 0, and then subject 0 room 1, etc.
 app.get("/reset", (req, res) => {
