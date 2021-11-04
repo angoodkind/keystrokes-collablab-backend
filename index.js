@@ -48,10 +48,11 @@ io.on('connection', (socket) => {
     const d = new Date();  
     const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
     const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-    const expNode = expDate+`_`+expTime;
-    
+    // const expNode = expDate+`_`+expTime;
+
     socket.join(`room${room}`);
-    socket.emit('connection', {room: room, count: count, expDT: expNode});
+    // this is still updating every time a new subj joins
+    socket.emit('connection', {room: room, count: count, expDT: expDate});
     // Use a dictionary to keep track of how many people are in what room
     roomMap[socket.id] = count;
     if (count == 0) {
