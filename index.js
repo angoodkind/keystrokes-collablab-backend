@@ -43,10 +43,15 @@ app.get("/reset", (req, res) => {
     res.status(200).send("Reset");
 })
 
+// time-stamp at beginning of experiment
+const d = new Date();  
+const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+const expNode = expDate+`_`+expTime;
 
 io.on('connection', (socket) => { 
     socket.join(`room${room}`);
-    socket.emit('connection', {room: room, count: count});
+    socket.emit('connection', {room: room, count: count, expDT: expNode});
     // Use a dictionary to keep track of how many people are in what room
     roomMap[socket.id] = count;
     if (count == 0) {
