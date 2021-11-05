@@ -61,7 +61,7 @@ io.on('connection', (socket) => {
     if (count == 0) {
         count = count + 1;
     } else {
-        io.to(`room${room}`).emit('readyForTimer', {room: room, count: count, expDT: expDate});
+        io.to(`room${room}`).emit('readyForTimer', {test: "test", room: room, count: count, expDT: expDate});
         // socket.emit('readyForTimer', {room: room, count: count, expDT: expDate});
         count = 0;
         room++;
