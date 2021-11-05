@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
     // time-stamp at beginning of experiment
     const d = new Date();  
     const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-    const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+    // const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
     // const expNode = expDate+`_`+expTime;
 
     socket.join(`room${room}`);
@@ -58,6 +58,7 @@ io.on('connection', (socket) => {
     if (count == 0) {
         count = count + 1;
     } else {
+        socket.emit('readyForTimer', {room: room, count: count, expDT: expDate});
         count = 0;
         room++;
         
