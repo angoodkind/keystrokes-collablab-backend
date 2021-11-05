@@ -47,12 +47,12 @@ io.on('connection', (socket) => {
     // time-stamp at beginning of experiment
     const d = new Date();  
     const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-    // const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-    // const expNode = expDate+`_`+expTime;
+    const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+    const expNode = expDate+`_`+expTime;
 
     socket.join(`room${room}`);
     // this is still updating every time a new subj joins
-    socket.emit('connection', {room: room, count: count, expDT: expDate});
+    socket.emit('connection', {room: room, count: count, experimentNode: expNode});
     // io.to(`room${room}`).emit('readyForTimer', {room: room, count: count, expDT: expDate});
     // io.to(`room${room}`).emit("readyForTimer", data.room);
     
@@ -61,7 +61,7 @@ io.on('connection', (socket) => {
     if (count == 0) {
         count = count + 1;
     } else {
-        io.to(`room${room}`).emit('readyForTimer', {test: "test", room: room, count: count, expDT: expDate});
+        io.to(`room${room}`).emit('readyForTimer', {test: "test", room: room, count: count, experimentNode: expNode});
         // socket.emit('readyForTimer', {room: room, count: count, expDT: expDate});
         count = 0;
         room++;
