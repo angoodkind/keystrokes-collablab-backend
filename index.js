@@ -53,12 +53,15 @@ io.on('connection', (socket) => {
     socket.join(`room${room}`);
     // this is still updating every time a new subj joins
     socket.emit('connection', {room: room, count: count, expDT: expDate});
-    socket.emit('readyForTimer', {room: room, count: count, expDT: expDate});
+    // io.to(`room${room}`).emit('readyForTimer', {room: room, count: count, expDT: expDate});
+    // io.to(`room${room}`).emit("readyForTimer", data.room);
+    
     // Use a dictionary to keep track of how many people are in what room
     roomMap[socket.id] = count;
     if (count == 0) {
         count = count + 1;
     } else {
+        io.to(`room${room}`).emit('readyForTimer', {room: room, count: count, expDT: expDate});
         // socket.emit('readyForTimer', {room: room, count: count, expDT: expDate});
         count = 0;
         room++;
