@@ -55,11 +55,11 @@ io.on('connection', (socket) => {
     if (count == 0) {
         count = count + 1;
     } else {
-        const d = new Date();  
-        const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
-        const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
-        const expNode = expDate+`_`+expTime;
-        io.to(`room${room}`).emit('readyForTimer', {room: room, count: count, expN: expNode});
+        // const d = new Date();  
+        // const expDate = d.toLocaleDateString().replace(/\//g,'-'); // replace all /'s with -'s
+        // const expTime = d.toLocaleTimeString('en-GB'); //24-hour time format
+        // const expNode = expDate+`_`+expTime;
+        io.to(`room${room}`).emit('readyForTimer', {room: room, count: count});
         count = 0;
         room++;
     }
