@@ -88,9 +88,10 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('count: ',count,'room: ',room)
         console.log('disconnect');
-        if (count == 1) {
+        if (count == 0) {
             count = 0;
             room++;
+            console.log('newcount: ',count,'newroom: ',room)
         }
 
     })
