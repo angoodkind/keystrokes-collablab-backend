@@ -85,6 +85,10 @@ io.on('connection', (socket) => {
         io.to(`room${data.room}`).emit("getNode", data.room);
     })
 
+    socket.on('disconnect', (socket) => {
+        console.log('disconnect');
+    })
+
 
 });
 
