@@ -85,6 +85,14 @@ io.on('connection', (socket) => {
         io.to(`room${data.room}`).emit("getNode", data.room);
     })
 
+    /*
+        when a subject disconnects, if they are the only one to have entered
+        the room (count=1), this will reset the count so that when a new person
+        joins, it will start back at Subject1
+        right now it also advances the room #. this is probably overkill, as 
+        anything Subj1 writes before Subj2 joins will go to the prompt0/ node 
+        of the db
+    */
     socket.on('disconnect', () => {
         console.log('count: ',count,'room: ',room)
         console.log('disconnect');
