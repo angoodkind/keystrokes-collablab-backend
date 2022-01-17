@@ -72,7 +72,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('typingInd', (data) => {
-        console.log('is typing now');
+        console.log('is typing now backend');
         io.to(`room${data.room}`).emit("typingInd", data.signal)
     })
 
