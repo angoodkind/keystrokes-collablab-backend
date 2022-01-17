@@ -71,6 +71,11 @@ io.on('connection', (socket) => {
         io.to(`room${data.room}`).emit("message", data.signal)
     })
 
+    socket.on('typingInd'), (data) => {
+        console.log('is typing now')
+        io.to(`room${data.room}`).emit("typingInd", data.signal)
+    }
+
     // Use the socket.io library to tell clients what room they're in.
     socket.on('setNode', (data) => {
         nodes[data.room] = data.signal;
