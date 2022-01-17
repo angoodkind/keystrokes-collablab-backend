@@ -71,9 +71,9 @@ io.on('connection', (socket) => {
         io.to(`room${data.room}`).emit("message", data.signal)
     })
 
-    socket.on('typingInd', (data) => {
+    socket.on('isTypingIndicator', (data) => {
         console.log('is typing now backend');
-        io.to(`room${data.room}`).emit("typingInd", data.signal)
+        io.to(`room${data.room}`).emit("isTypingIndicator", data.signal)
     })
 
     // Use the socket.io library to tell clients what room they're in.
