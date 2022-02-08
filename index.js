@@ -67,12 +67,12 @@ io.on('connection', (socket) => {
 
     // Use the soclket.io library to send messages to the right rooms.
     socket.on('message', (data) => {
-        console.log(`Hello ${data.room}`)
+        // console.log(`Hello ${data.room}`)
         io.to(`room${data.room}`).emit("message", data.signal)
     })
 
     socket.on('isTypingIndicator', (data) => {
-        console.log('is typing now backend');
+        // console.log('is typing now backend');
         io.to(`room${data.room}`).emit("isTypingIndicator", data.signal)
     })
 
@@ -106,16 +106,5 @@ io.on('connection', (socket) => {
             room++;
             console.log('newcount: ',count,'newroom: ',room)
         }
-
     })
-
-
 });
-
-
-
-
-
-
-
-
