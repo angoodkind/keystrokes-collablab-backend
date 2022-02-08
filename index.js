@@ -79,13 +79,14 @@ io.on('connection', (socket) => {
     // Use the socket.io library to tell clients what room they're in.
     socket.on('setNode', (data) => {
         nodes[data.room] = data.signal;
-        console.log("SET NODE EVENT");
+        // console.log("SET NODE EVENT");
+        console.log('Connect_0 - count: ',count,'room: ',room)
         console.log(data.signal);
         io.to(`room${data.room}`).emit("setNode", data.room)
     })
 
     socket.on('getNode', (data) => {
-        console.log("GET NODE EVENT");
+        console.log('Connect_1 - count: ',count,'room: ',room)
         console.log(nodes[data.room]);
         io.to(`room${data.room}`).emit("getNode", data.room);
     })
@@ -99,8 +100,7 @@ io.on('connection', (socket) => {
         of the db
     */
     socket.on('disconnect', () => {
-        console.log('count: ',count,'room: ',room)
-        console.log('disconnect');
+        console.log('Disconnect - count: ',count,'room: ',room)
         if (count == 1) {
             count = 0;
             room++;
